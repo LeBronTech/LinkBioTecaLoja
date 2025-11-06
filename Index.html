@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Link na Bio</title>
+    
+    <!-- Carrega o Tailwind CSS --><script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Carrega a fonte Inter (moderna e limpa) --><link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+        
+    <style>
+        /* Define a fonte Inter como padrão */
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        /* Cores Personalizadas para Ione Lourenço */
+        .text-ione-purple { color: #6a0dad; }
+        .border-ione-purple { border-color: #6a0dad; }
+        .hover\:bg-ione-purple:hover { background-color: #6a0dad; }
+        
+        .text-ione-pink { color: #eb4e9c; }
+        .border-ione-pink { border-color: #eb4e9c; }
+        .hover\:bg-ione-pink:hover { background-color: #eb4e9c; }
+        
+        .bg-gradient-ione {
+            background-image: linear-gradient(to right, #eb4e9c, #6a0dad); /* Rosa para Roxo */
+        }
+
+        /* ANIMAÇÃO DO BOTÃO "VITRINE ONLINE" */
+        @keyframes pulse-shake {
+            0% { transform: scale(1) rotate(0deg); }
+            25% { transform: scale(1.02) rotate(1deg); }
+            50% { transform: scale(1) rotate(-1deg); }
+            75% { transform: scale(1.02) rotate(1deg); }
+            100% { transform: scale(1) rotate(0deg); }
+        }
+        .animate-pulse-shake {
+            animation: pulse-shake 3s infinite ease-in-out;
+        }
+
+        /* ANIMAÇÃO DE FUNDO "ONDA" DA SEÇÃO TECA */
+        @keyframes wave-bg {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .animated-wave-bg {
+            position: relative;
+            overflow: hidden; /* Garante que a onda não vaze */
+        }
+
+        .animated-wave-bg::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 300%; /* Mais largo para o efeito de onda */
+            height: 100%;
+            background: linear-gradient(90deg, 
+                transparent 0%, 
+                rgba(217, 189, 100, 0.1) 20%, 
+                rgba(217, 189, 100, 0.3) 50%, 
+                rgba(217, 189, 100, 0.1) 80%, 
+                transparent 100%
+            ); /* Transparente para dourado sutil */
+            background-size: 30% 100%; /* Tamanho da "onda" */
+            animation: wave-bg 15s linear infinite; /* Velocidade da onda */
+            z-index: 0; /* Fica atrás do conteúdo */
+            opacity: 0.3; /* Mais sutil */
+        }
+
+        /* Garante que o conteúdo da seção Teca fique acima do pseudo-elemento */
+        .animated-wave-bg > div {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* ANIMAÇÃO DA DIVISÓRIA DIAGONAL COMO ONDA */
+        @keyframes wave-clip {
+            0% { 
+                clip-path: polygon(0 0, 100% 0, 100% 100%, 0 calc(100% - 40px - 5px)); /* Mais para cima */
+            }
+            50% { 
+                clip-path: polygon(0 0, 100% 0, 100% 100%, 0 calc(100% - 40px + 5px)); /* Mais para baixo */
+            }
+            100% { 
+                clip-path: polygon(0 0, 100% 0, 100% 100%, 0 calc(100% - 40px - 5px)); /* Volta para cima */
+            }
+        }
+
+        .animated-clip-teca {
+            animation: wave-clip 8s infinite ease-in-out; /* Velocidade e tipo de onda da divisória */
+        }
+        .animated-clip-ione {
+            animation: wave-clip-reverse 8s infinite ease-in-out;
+        }
+
+        @keyframes wave-clip-reverse {
+            0% { 
+                clip-path: polygon(0 calc(40px + 5px), 100% 0, 100% 100%, 0 100%); 
+            }
+            50% { 
+                clip-path: polygon(0 calc(40px - 5px), 100% 0, 100% 100%, 0 100%); 
+            }
+            100% { 
+                clip-path: polygon(0 calc(40px + 5px), 100% 0, 100% 100%, 0 100%); 
+            }
+        }
+
+        /* ANIMAÇÃO DE "ONDA" NOS BOTÕES DA IONE (AGORA PRATA) */
+        @keyframes wave-bg-silver { /* Renomeado para clareza, mas poderia ser o mesmo nome */
+            0% { background-position: -100% 50%; } /* Começa fora da tela */
+            100% { background-position: 200% 50%; } /* Termina fora da tela */
+        }
+
+        .animated-ione-wave {
+            position: relative;
+            overflow: hidden; /* Garante que a onda não vaze */
+        }
+
+        .animated-ione-wave::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%; 
+            height: 100%;
+            /* COR ALTERADA DE ROXO PARA PRATA/BRANCO */
+            background: linear-gradient(90deg, 
+                transparent 0%, 
+                rgba(220, 220, 220, 0.4) 40%, /* Prata sutil */
+                rgba(220, 220, 220, 0.7) 50%, /* Prata mais forte */
+                rgba(220, 220, 220, 0.4) 60%, /* Prata sutil */
+                transparent 100%
+            ); 
+            background-size: 60% 100%; /* Tamanho da "onda" */
+            animation: wave-bg-silver 4s linear infinite; 
+            z-index: 0; 
+            opacity: 0.9; /* Opacidade ajustada para prata */
+        }
+
+        /* Garante que o conteúdo do botão Ione fique acima da onda */
+        .animated-ione-wave > span,
+        .animated-ione-wave > img {
+            position: relative;
+            z-index: 1;
+        }
+
+
+    </style>
+</head>
+<body class="bg-gray-200">
+
+    <!-- Container principal que limita a largura --><main class="max-w-md mx-auto min-h-screen shadow-lg">
+    
+        <!-- =================================== --><!-- 1. Seção IONE LOURENÇO (AGORA EM CIMA) --><!-- =================================== --><section class="animated-clip-teca pb-12 p-6 relative z-10" 
+                 style="background-image: url('https://i.postimg.cc/Y9WkWcDh/Logos-lojas-Teca-2025-20251105-195848-0000.png'); background-size: cover; background-position: center;">
+            <div class="text-center">
+                
+                <!-- LOGO IONE (Mantida) --><img 
+                    src="https://i.postimg.cc/QtYw6FRz/Logo-lojas-Teca-20251017-210317-0001.png" 
+                    alt="Logo Ione Lourenço"
+                    class="h-28 w-auto mx-auto mt-4 rounded-xl" 
+                    onerror="this.src='https://placehold.co/250x100/6a0dad/ffffff?text=Ione+Louren%C3%A7o'"
+                >
+                
+                <!-- Título da Seção (cor trocada para preto) --><h2 class="text-black text-2xl font-bold mt-4">Ione Lourenço</h2>
+                <p class="text-gray-900 text-sm mt-1">Decorações</p>
+            </div>
+            
+            <!-- Links da Ione (NOVOS ESTILOS) --><div class="mt-8 space-y-4">
+                
+                <!-- Botão Vitrine Online REMOVIDO daqui --><a href="https://wa.me/5561991434805" 
+                   target="_blank"
+                   class="group flex items-center justify-center w-full border-2 border-ione-purple bg-white text-ione-purple text-center p-4 rounded-lg font-bold text-lg transition duration-300 hover:scale-105 hover:bg-ione-purple hover:text-white animated-ione-wave">
+                    <!-- ÍCONE WHATSAPP - Invertido (preto) por padrão, fica branco no hover --><img src="https://i.postimg.cc/N0g8PBv2/Logos-lojas-Teca-2025-20251105-205101-0001.png" alt="WhatsApp" class="h-6 w-6 mr-3 filter invert group-hover:filter-none">
+                    <span>WhatsApp Ione</span>
+                </a>
+
+                <a href="https://www.instagram.com/ionelourencodecor?igsh=cnZoY2g5ZTg1Z3lq" 
+                   target="_blank"
+                   class="group flex items-center justify-center w-full border-2 border-ione-purple bg-white text-ione-purple text-center p-4 rounded-lg font-bold text-lg transition duration-300 hover:scale-105 hover:bg-ione-purple hover:text-white animated-ione-wave">
+                    <!-- ÍCONE INSTAGRAM - Invertido (preto) por padrão, fica branco no hover --><img src="https://i.postimg.cc/rpQ1B3qd/Logos-lojas-Teca-2025-20251105-205101-0000.png" alt="Instagram" class="h-6 w-6 mr-3 filter invert group-hover:filter-none">
+                    <span>Instagram Ione</span>
+                </a>
+
+                <!-- BOTÃO DE LOCALIZAÇÃO --><a href="https://maps.app.goo.gl/bMLD2Ee1KoUgGhhs9" 
+                   target="_blank"
+                   class="group flex items-center justify-center w-full border-2 border-ione-purple bg-white text-ione-purple text-center p-4 rounded-lg font-bold text-lg transition duration-300 hover:scale-105 hover:bg-ione-purple hover:text-white animated-ione-wave">
+                    <!-- ÍCONE LOCALIZAÇÃO - AGORA O NOVO ÍCONE --><img src="https://i.postimg.cc/T3gMc8rv/Logos-lojas-Teca-2025-20251105-214044-0000.png" alt="Localização" class="h-6 w-6 mr-3 filter invert group-hover:filter-none">
+                    <span>Venha nos visitar</span>
+                </a>
+            </div>
+        </section>
+
+        <!-- =================================== --><!-- Botão Central VITRINE ONLINE --><!-- =================================== --><div class="relative z-20 flex justify-center -mt-8">
+            <a href="https://tecalojas.vercel.app" 
+               target="_blank"
+               class="flex items-center justify-center bg-[#6a0dad] text-white text-center px-10 py-4 rounded-lg font-bold text-lg transition duration-300 hover:scale-105 hover:bg-purple-800 shadow-2xl animate-pulse-shake">
+                <!-- ÍCONE LOJA - Branco no fundo roxo --><img src="https://i.postimg.cc/BvMTrkJD/Logos-lojas-Teca-2025-20251105-205102-0002.png" alt="Loja" class="h-6 w-6 mr-3">
+                <span>Vitrine Online</span>
+            </a>
+        </div>
+
+
+        <!-- =================================== --><!-- 2. Seção TECA DECORAÇÃO (AGORA EM BAIXO) --><!-- =================================== --><section class="animated-clip-ione bg-[#1f1f1f] text-white pb-12 p-6 relative -mt-10 pt-16 animated-wave-bg">
+            <!-- Camada de conteúdo que fica ACIMA da onda de fundo --><div class="relative z-10">
+                <div class="text-center">
+                    
+                    <!-- LOGO TECA CORRIGIDA para a original dourada --><img 
+                        src="https://i.postimg.cc/5NCT3Nn1/Logo-lojas-Teca-20251017-210317-0000.png" 
+                        alt="Logo Teca Decoração"
+                        class="h-28 w-auto mx-auto mt-4 rounded-xl" 
+                        onerror="this.src='https://placehold.co/250x100/d9bd64/1f1f1f?text=Teca+Decora%C3%A7%C3%B5es'"
+                    >
+                    
+                    <!-- Título principal - ATUALIZADO --><h1 class="text-[#d9bd64] text-2xl font-bold mt-4">Cosme Daniel</h1>
+                    <!-- TEXTO RE-ADICIONADO E CORRIGIDO --><p class="text-gray-300 text-sm mt-1">Teca Decoração</p>
+                </div>
+                
+                <!-- Links da Teca - Botão Loja REMOVIDO --><div class="mt-8 space-y-4">
+                    
+                    <!-- Botão Loja Online Teca REMOVIDO daqui --><a href="https://wa.me/5561993224743" 
+                       target="_blank"
+                       class="group flex items-center justify-center w-full border-2 border-[#d9bd64] text-[#d9bd64] text-center p-4 rounded-lg font-bold text-lg transition duration-300 hover:scale-105 hover:bg-[#d9bd64] hover:text-black">
+                        <!-- ÍCONE NOVO (WHATSAPP) - Branco, vira preto no hover --><img src="https://i.postimg.cc/N0g8PBv2/Logos-lojas-Teca-2025-20251105-205101-0001.png" alt="WhatsApp" class="h-6 w-6 mr-3 group-hover:filter group-hover:invert">
+                        <span>WhatsApp Teca</span>
+                    </a>
+                    <a href="https://www.instagram.com/tecadecoracoestorredetv?igsh=MXh5NnFxb2tpMXRyNw==" 
+                       target="_blank"
+                       class="flex items-center justify-center w-full border-2 border-gray-600 text-gray-300 text-center p-4 rounded-lg font-semibold transition duration-300 hover:scale-105 hover:border-[#d9bd64] hover:text-[#d9bd64]">
+                        <!-- ÍCONE NOVO (INSTAGRAM) - Branco no fundo escuro --><img src="https://i.postimg.cc/rpQ1B3qd/Logos-lojas-Teca-2025-20251105-205101-0000.png" alt="Instagram" class="h-6 w-6 mr-3">
+                        <span>Instagram Teca</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+</body>
+</html>
+
+
